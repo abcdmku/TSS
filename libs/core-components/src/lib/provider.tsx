@@ -1,8 +1,9 @@
 
 import { HeroUIProvider } from "@heroui/system";
 import {ThemeProvider as NextThemesProvider} from "next-themes";
+import "./globals.css";
 
-export function Provider({ children }: { children: React.ReactNode }) {
+export const Provider = ({ children }: { children: React.ReactNode }) => {
   return (
     <HeroUIProvider>
       <NextThemesProvider attribute="class" defaultTheme="dark">

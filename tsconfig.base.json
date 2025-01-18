@@ -16,10 +16,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@hoqs/core-components": ["libs/core-components/src/index.ts"],
-      "@hoqs/routes": ["libs/hoqs-routes/src/index.ts"],
+      "@/*": ["apps/hoqs/src/*"],
       "@hoqs-features": ["libs/hoqs-features/src/index.ts"],
-      "@/*": ["apps/hoqs/src/*"]
+      "@hoqs/core-components": ["libs/core-components/src/index.ts"],
+      "@hoqs/routes": ["libs/hoqs-routes/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

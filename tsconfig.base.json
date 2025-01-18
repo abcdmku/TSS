@@ -4,17 +4,20 @@
     "rootDir": ".",
     "sourceMap": true,
     "declaration": false,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
+    "noImplicitAny": false,
     "target": "es2015",
-    "module": "esnext",
+    "module": "ESNext",
     "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@hoqs/core-components": ["libs/core-components/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

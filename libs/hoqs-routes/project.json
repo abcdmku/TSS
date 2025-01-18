@@ -1,0 +1,19 @@
+{
+  "name": "hoqs-routes",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/hoqs-routes/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "generate-routes": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "libs/hoqs-routes",
+        "command": "npx tsr generate"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

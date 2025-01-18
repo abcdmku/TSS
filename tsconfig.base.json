@@ -16,7 +16,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@hoqs/core-components": ["libs/core-components/src/index.ts"]
+      "@hoqs/core-components": ["libs/core-components/src/index.ts"],
+      "@hoqs/routes": ["libs/hoqs-routes/src/index.ts"],
+      "@hoqs-features": ["libs/hoqs-features/src/index.ts"],
+      "@/*": ["apps/hoqs/src/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

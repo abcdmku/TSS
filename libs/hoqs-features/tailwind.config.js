@@ -30,5 +30,5 @@ module.exports = {
     'text-secondary-500',
   ],
   darkMode: 'class',
-  plugins: [heroui()],
+  plugins: [heroui(),require('@tailwindcss/typography')],
 };

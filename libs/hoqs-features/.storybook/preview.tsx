@@ -1,10 +1,17 @@
-import { Provider } from "@hoqs/core-components";
+import { BackgroundEffect, PageContainer, Provider, storyRouterDecorator } from "@hoqs/core-components";
 import { withThemeByClassName } from '@storybook/addon-themes';
+import {messages} from '../src/lib/text-en-US';
 
 export const decorators = [
+  storyRouterDecorator,
   (Story) => (
-    <Provider>
-      <Story />
+    <Provider messages={messages}>
+      <div className="min-w-screen min-h-screen flex relative items-center flex-col">
+        <PageContainer>
+          <Story />
+          <BackgroundEffect/>
+        </PageContainer>
+      </div>
     </Provider>
   ),
   withThemeByClassName({

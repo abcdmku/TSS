@@ -11,14 +11,16 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as AboutImport } from './routes/about'
+import { Route as ContentRouteImport } from './routes/_content/route'
 import { Route as IndexImport } from './routes/index'
+import { Route as ContentLoginImport } from './routes/_content/login'
+import { Route as ContentLicenseImport } from './routes/_content/license'
+import { Route as ContentAboutImport } from './routes/_content/about'
 
 // Create/Update Routes
 
-const AboutRoute = AboutImport.update({
-  id: '/about',
-  path: '/about',
+const ContentRouteRoute = ContentRouteImport.update({
+  id: '/_content',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -26,6 +28,24 @@ const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
+} as any)
+
+const ContentLoginRoute = ContentLoginImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => ContentRouteRoute,
+} as any)
+
+const ContentLicenseRoute = ContentLicenseImport.update({
+  id: '/license',
+  path: '/license',
+  getParentRoute: () => ContentRouteRoute,
+} as any)
+
+const ContentAboutRoute = ContentAboutImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => ContentRouteRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -39,51 +59,103 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/about': {
-      id: '/about'
+    '/_content': {
+      id: '/_content'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof ContentRouteImport
+      parentRoute: typeof rootRoute
+    }
+    '/_content/about': {
+      id: '/_content/about'
       path: '/about'
       fullPath: '/about'
-      preLoaderRoute: typeof AboutImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof ContentAboutImport
+      parentRoute: typeof ContentRouteImport
+    }
+    '/_content/license': {
+      id: '/_content/license'
+      path: '/license'
+      fullPath: '/license'
+      preLoaderRoute: typeof ContentLicenseImport
+      parentRoute: typeof ContentRouteImport
+    }
+    '/_content/login': {
+      id: '/_content/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof ContentLoginImport
+      parentRoute: typeof ContentRouteImport
     }
   }
 }
 
 // Create and export the route tree
 
+interface ContentRouteRouteChildren {
+  ContentAboutRoute: typeof ContentAboutRoute
+  ContentLicenseRoute: typeof ContentLicenseRoute
+  ContentLoginRoute: typeof ContentLoginRoute
+}
+
+const ContentRouteRouteChildren: ContentRouteRouteChildren = {
+  ContentAboutRoute: ContentAboutRoute,
+  ContentLicenseRoute: ContentLicenseRoute,
+  ContentLoginRoute: ContentLoginRoute,
+}
+
+const ContentRouteRouteWithChildren = ContentRouteRoute._addFileChildren(
+  ContentRouteRouteChildren,
+)
+
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
+  '': typeof ContentRouteRouteWithChildren
+  '/about': typeof ContentAboutRoute
+  '/license': typeof ContentLicenseRoute
+  '/login': typeof ContentLoginRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
+  '': typeof ContentRouteRouteWithChildren
+  '/about': typeof ContentAboutRoute
+  '/license': typeof ContentLicenseRoute
+  '/login': typeof ContentLoginRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
+  '/_content': typeof ContentRouteRouteWithChildren
+  '/_content/about': typeof ContentAboutRoute
+  '/_content/license': typeof ContentLicenseRoute
+  '/_content/login': typeof ContentLoginRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about'
+  fullPaths: '/' | '' | '/about' | '/license' | '/login'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about'
-  id: '__root__' | '/' | '/about'
+  to: '/' | '' | '/about' | '/license' | '/login'
+  id:
+    | '__root__'
+    | '/'
+    | '/_content'
+    | '/_content/about'
+    | '/_content/license'
+    | '/_content/login'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
+  ContentRouteRoute: typeof ContentRouteRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AboutRoute: AboutRoute,
+  ContentRouteRoute: ContentRouteRouteWithChildren,
 }
 
 export const routeTree = rootRoute
@@ -97,14 +169,31 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/about"
+        "/_content"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
-    "/about": {
-      "filePath": "about.tsx"
+    "/_content": {
+      "filePath": "_content/route.tsx",
+      "children": [
+        "/_content/about",
+        "/_content/license",
+        "/_content/login"
+      ]
+    },
+    "/_content/about": {
+      "filePath": "_content/about.tsx",
+      "parent": "/_content"
+    },
+    "/_content/license": {
+      "filePath": "_content/license.tsx",
+      "parent": "/_content"
+    },
+    "/_content/login": {
+      "filePath": "_content/login.tsx",
+      "parent": "/_content"
     }
   }
 }

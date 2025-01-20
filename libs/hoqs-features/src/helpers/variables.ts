@@ -1,38 +1,15 @@
-import {
-  BadgeType,
-  ColorVariant,
-  ContributorRole,
-} from '../types/types';
+import { BadgeType } from 'libs/core-components/src/lib/badges/BadgeTypes';
+import { ContributorRole } from '../types/types';
 import { DriverRank } from '../types/types';
 import {
-  LuArchive,
-  LuAudioLines,
-  LuChartBar,
   LuBox,
-  LuBoxes,
-  LuCrown,
   LuDraftingCompass,
-  LuFileSliders,
-  LuFileText,
-  LuFlag,
-  LuHandHeart,
-  LuHandHelping,
-  LuHeart,
   LuIterationCcw,
-  LuChartLine,
-  LuMessagesSquare,
-  LuMic,
-  LuSearchCheck,
-  LuShieldCheck,
   LuShip,
   LuSparkles,
-  LuSquareKanban,
   LuThumbsUp,
-  LuTrendingUp,
   LuUnplug,
-  LuVolume,
   LuZap,
-  LuText,
   LuThumbsDown,
 } from 'react-icons/lu';
 
@@ -122,74 +99,6 @@ export const DRIVER_BADGES = [
   },
 ] satisfies BadgeType[];
 
-export const FILE_BADGES = [
-  { title: 'Manual', color: 'primary', variant: 'shadow', icon: LuFileText },
-  {
-    title: 'HornResp',
-    color: 'secondary',
-    variant: 'shadow',
-    icon: LuFileSliders,
-  },
-  {
-    title: 'Measurements',
-    color: 'secondary',
-    variant: 'shadow',
-    icon: LuChartLine,
-  },
-  { title: 'REW', color: 'secondary', variant: 'shadow', icon: LuMic },
-  {
-    title: 'AKABAK',
-    color: 'secondary',
-    variant: 'shadow',
-    icon: LuSquareKanban,
-  },
-  {
-    title: 'Illustration',
-    color: 'warning',
-    variant: 'shadow',
-    icon: LuDraftingCompass,
-  },
-  {
-    title: '3D-Model',
-    color: 'warning',
-    variant: 'shadow',
-    icon: LuBox,
-  },
-  {
-    title: 'Sketch-up',
-    color: 'warning',
-    variant: 'shadow',
-    icon: LuDraftingCompass,
-  },
-  { title: 'New', color: 'danger', variant: 'shadow', icon: LuSparkles },
-  { title: 'Old', color: 'default', variant: 'shadow', icon: LuShip },
-] satisfies BadgeType[];
-
-export const TIMELINE_ICONS = {
-  sparkles: LuSparkles,
-  shield: LuShieldCheck,
-  audio: LuAudioLines,
-  box: LuBox,
-  boxes: LuBoxes,
-  archive: LuArchive,
-  chart: LuChartBar,
-  trending: LuTrendingUp,
-  hand: LuHandHelping,
-  messages: LuMessagesSquare,
-  drafting: LuDraftingCompass,
-  flag: LuFlag,
-  crown: LuCrown,
-  heart: LuHeart,
-  thumbs: LuThumbsUp,
-  unplug: LuUnplug,
-  zap: LuZap,
-  handheart: LuHandHeart,
-  volume: LuVolume,
-  search: LuSearchCheck,
-  mic: LuMic,
-  text: LuText,
-};
-
 export const CONTRIBUTOR_ROLES = [
   'Scientist',
   'Optimizer',
@@ -207,12 +116,3 @@ export const DRIVER_RANK = [
   'Bad',
   'None',
 ] satisfies DriverRank[];
-
-export const COLORS = [
-  'primary',
-  'secondary',
-  'danger',
-  'warning',
-  'success',
-  'default',
-] satisfies ColorVariant[];

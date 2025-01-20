@@ -1,6 +1,6 @@
 import { BackgroundEffect, PageContainer, Provider, storyRouterDecorator } from "@hoqs/core-components";
 import { withThemeByClassName } from '@storybook/addon-themes';
-import {messages} from '../src/lib/text-en-US';
+import {messages} from '../src/text-en-US';
 
 export const decorators = [
   storyRouterDecorator,

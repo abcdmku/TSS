@@ -1,41 +1,6 @@
 import { Tables } from './supabase';
 import { TIMELINE_ICONS } from '../lib/variables';
 
-export type StorageImage = {
-  description?: string;
-  location?: string;
-  driver?: string;
-  contributors?: Contributor[];
-} & AbstractStorageFile;
-
-export type StorageFile = {
-  description: string;
-  badges?: string[];
-} & AbstractStorageFile;
-
-export interface AbstractStorageFile {
-  title: string;
-  url: string;
-  updatedAt: string;
-  createdAt: string;
-  size: number;
-  mimetype: string;
-}
-
-type ContributorRole =
-  | 'Scientist'
-  | 'Optimizer'
-  | 'Prototyper'
-  | 'Lead'
-  | 'Helpful'
-  | 'Writer';
-
-export interface Contributor {
-  name: string;
-  description: string;
-  role: ContributorRole;
-}
-
 export type SpeakerCabinet = MergeWithOverwrite<
   Tables<'cabinets'>,
   {
@@ -49,31 +14,7 @@ export type SpeakerCabinet = MergeWithOverwrite<
 
 export type MergeWithOverwrite<T, U> = Omit<T, keyof U> & U;
 
-export type ColorVariant =
-  | 'default'
-  | 'primary'
-  | 'success'
-  | 'warning'
-  | 'danger'
-  | 'secondary';
-
-export interface BadgeType {
-  title: string;
-  color: ColorVariant;
-  variant: 'dot' | 'shadow' | 'solid' | 'bordered' | 'light' | 'flat' | 'faded';
-  icon?: LucideIcon;
-}
-
-export interface TimelineEntry {
-  title: string;
-  date: string;
-  description: string;
-  color: ColorVariant;
-  badge?: string;
-  icon?: keyof typeof TIMELINE_ICONS;
-}
-
-export type Driver = Tables<'drivers'>;
+export type DriverType = Tables<'drivers'>;
 
 export type DriverRank =
   | 'Optimal'
@@ -82,3 +23,42 @@ export type DriverRank =
   | 'Okay'
   | 'Bad'
   | 'None';
+
+export type CabinetRecommendedChanges = SpeakerCabinet & {
+  recommendationChanges?: DriverRecommendation[];
+};
+
+export type DriverRecommendation = {
+  id?: string;
+  notes: string | null;
+  rank: DriverRank;
+  driver_id: string;
+};
+
+export type DriverRecommendationWithDriver = DriverRecommendation & {
+  driver: {
+    id: string;
+    brand: string;
+    model: string;
+    size_inches: number;
+    p_max: number;
+    x_max: number;
+  };
+};
+
+
+export function rankToRankNumber(rank: DriverRank): number {
+  switch (rank) {
+    case 'Optimal':
+      return 5;
+    case 'Excellent':
+      return 4;
+    case 'Good':
+      return 3;
+    case 'Okay':
+      return 2;
+    case 'Bad':
+      return 1;
+  }
+  return 0;
+}

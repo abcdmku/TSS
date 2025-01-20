@@ -11,16 +11,34 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as ContentRouteImport } from './routes/_content/route'
+import { Route as LoginImport } from './routes/login'
+import { Route as LicenseImport } from './routes/license'
+import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
-import { Route as ContentLoginImport } from './routes/_content/login'
-import { Route as ContentLicenseImport } from './routes/_content/license'
-import { Route as ContentAboutImport } from './routes/_content/about'
+import { Route as DriversIndexImport } from './routes/drivers/index'
+import { Route as CabinetsIndexImport } from './routes/cabinets/index'
+import { Route as DriversIdImport } from './routes/drivers/$id'
+import { Route as CabinetsIdImport } from './routes/cabinets/$id'
+import { Route as DriversIdEditImport } from './routes/drivers/$id.edit'
+import { Route as CabinetsIdEditImport } from './routes/cabinets/$id.edit'
 
 // Create/Update Routes
 
-const ContentRouteRoute = ContentRouteImport.update({
-  id: '/_content',
+const LoginRoute = LoginImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LicenseRoute = LicenseImport.update({
+  id: '/license',
+  path: '/license',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AboutRoute = AboutImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -30,22 +48,40 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const ContentLoginRoute = ContentLoginImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => ContentRouteRoute,
+const DriversIndexRoute = DriversIndexImport.update({
+  id: '/drivers/',
+  path: '/drivers/',
+  getParentRoute: () => rootRoute,
 } as any)
 
-const ContentLicenseRoute = ContentLicenseImport.update({
-  id: '/license',
-  path: '/license',
-  getParentRoute: () => ContentRouteRoute,
+const CabinetsIndexRoute = CabinetsIndexImport.update({
+  id: '/cabinets/',
+  path: '/cabinets/',
+  getParentRoute: () => rootRoute,
 } as any)
 
-const ContentAboutRoute = ContentAboutImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => ContentRouteRoute,
+const DriversIdRoute = DriversIdImport.update({
+  id: '/drivers/$id',
+  path: '/drivers/$id',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const CabinetsIdRoute = CabinetsIdImport.update({
+  id: '/cabinets/$id',
+  path: '/cabinets/$id',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const DriversIdEditRoute = DriversIdEditImport.update({
+  id: '/edit',
+  path: '/edit',
+  getParentRoute: () => DriversIdRoute,
+} as any)
+
+const CabinetsIdEditRoute = CabinetsIdEditImport.update({
+  id: '/edit',
+  path: '/edit',
+  getParentRoute: () => CabinetsIdRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -59,103 +95,198 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/_content': {
-      id: '/_content'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof ContentRouteImport
-      parentRoute: typeof rootRoute
-    }
-    '/_content/about': {
-      id: '/_content/about'
+    '/about': {
+      id: '/about'
       path: '/about'
       fullPath: '/about'
-      preLoaderRoute: typeof ContentAboutImport
-      parentRoute: typeof ContentRouteImport
+      preLoaderRoute: typeof AboutImport
+      parentRoute: typeof rootRoute
     }
-    '/_content/license': {
-      id: '/_content/license'
+    '/license': {
+      id: '/license'
       path: '/license'
       fullPath: '/license'
-      preLoaderRoute: typeof ContentLicenseImport
-      parentRoute: typeof ContentRouteImport
+      preLoaderRoute: typeof LicenseImport
+      parentRoute: typeof rootRoute
     }
-    '/_content/login': {
-      id: '/_content/login'
+    '/login': {
+      id: '/login'
       path: '/login'
       fullPath: '/login'
-      preLoaderRoute: typeof ContentLoginImport
-      parentRoute: typeof ContentRouteImport
+      preLoaderRoute: typeof LoginImport
+      parentRoute: typeof rootRoute
+    }
+    '/cabinets/$id': {
+      id: '/cabinets/$id'
+      path: '/cabinets/$id'
+      fullPath: '/cabinets/$id'
+      preLoaderRoute: typeof CabinetsIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/drivers/$id': {
+      id: '/drivers/$id'
+      path: '/drivers/$id'
+      fullPath: '/drivers/$id'
+      preLoaderRoute: typeof DriversIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/cabinets/': {
+      id: '/cabinets/'
+      path: '/cabinets'
+      fullPath: '/cabinets'
+      preLoaderRoute: typeof CabinetsIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/drivers/': {
+      id: '/drivers/'
+      path: '/drivers'
+      fullPath: '/drivers'
+      preLoaderRoute: typeof DriversIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/cabinets/$id/edit': {
+      id: '/cabinets/$id/edit'
+      path: '/edit'
+      fullPath: '/cabinets/$id/edit'
+      preLoaderRoute: typeof CabinetsIdEditImport
+      parentRoute: typeof CabinetsIdImport
+    }
+    '/drivers/$id/edit': {
+      id: '/drivers/$id/edit'
+      path: '/edit'
+      fullPath: '/drivers/$id/edit'
+      preLoaderRoute: typeof DriversIdEditImport
+      parentRoute: typeof DriversIdImport
     }
   }
 }
 
 // Create and export the route tree
 
-interface ContentRouteRouteChildren {
-  ContentAboutRoute: typeof ContentAboutRoute
-  ContentLicenseRoute: typeof ContentLicenseRoute
-  ContentLoginRoute: typeof ContentLoginRoute
+interface CabinetsIdRouteChildren {
+  CabinetsIdEditRoute: typeof CabinetsIdEditRoute
 }
 
-const ContentRouteRouteChildren: ContentRouteRouteChildren = {
-  ContentAboutRoute: ContentAboutRoute,
-  ContentLicenseRoute: ContentLicenseRoute,
-  ContentLoginRoute: ContentLoginRoute,
+const CabinetsIdRouteChildren: CabinetsIdRouteChildren = {
+  CabinetsIdEditRoute: CabinetsIdEditRoute,
 }
 
-const ContentRouteRouteWithChildren = ContentRouteRoute._addFileChildren(
-  ContentRouteRouteChildren,
+const CabinetsIdRouteWithChildren = CabinetsIdRoute._addFileChildren(
+  CabinetsIdRouteChildren,
+)
+
+interface DriversIdRouteChildren {
+  DriversIdEditRoute: typeof DriversIdEditRoute
+}
+
+const DriversIdRouteChildren: DriversIdRouteChildren = {
+  DriversIdEditRoute: DriversIdEditRoute,
+}
+
+const DriversIdRouteWithChildren = DriversIdRoute._addFileChildren(
+  DriversIdRouteChildren,
 )
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '': typeof ContentRouteRouteWithChildren
-  '/about': typeof ContentAboutRoute
-  '/license': typeof ContentLicenseRoute
-  '/login': typeof ContentLoginRoute
+  '/about': typeof AboutRoute
+  '/license': typeof LicenseRoute
+  '/login': typeof LoginRoute
+  '/cabinets/$id': typeof CabinetsIdRouteWithChildren
+  '/drivers/$id': typeof DriversIdRouteWithChildren
+  '/cabinets': typeof CabinetsIndexRoute
+  '/drivers': typeof DriversIndexRoute
+  '/cabinets/$id/edit': typeof CabinetsIdEditRoute
+  '/drivers/$id/edit': typeof DriversIdEditRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '': typeof ContentRouteRouteWithChildren
-  '/about': typeof ContentAboutRoute
-  '/license': typeof ContentLicenseRoute
-  '/login': typeof ContentLoginRoute
+  '/about': typeof AboutRoute
+  '/license': typeof LicenseRoute
+  '/login': typeof LoginRoute
+  '/cabinets/$id': typeof CabinetsIdRouteWithChildren
+  '/drivers/$id': typeof DriversIdRouteWithChildren
+  '/cabinets': typeof CabinetsIndexRoute
+  '/drivers': typeof DriversIndexRoute
+  '/cabinets/$id/edit': typeof CabinetsIdEditRoute
+  '/drivers/$id/edit': typeof DriversIdEditRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/_content': typeof ContentRouteRouteWithChildren
-  '/_content/about': typeof ContentAboutRoute
-  '/_content/license': typeof ContentLicenseRoute
-  '/_content/login': typeof ContentLoginRoute
+  '/about': typeof AboutRoute
+  '/license': typeof LicenseRoute
+  '/login': typeof LoginRoute
+  '/cabinets/$id': typeof CabinetsIdRouteWithChildren
+  '/drivers/$id': typeof DriversIdRouteWithChildren
+  '/cabinets/': typeof CabinetsIndexRoute
+  '/drivers/': typeof DriversIndexRoute
+  '/cabinets/$id/edit': typeof CabinetsIdEditRoute
+  '/drivers/$id/edit': typeof DriversIdEditRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '' | '/about' | '/license' | '/login'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/license'
+    | '/login'
+    | '/cabinets/$id'
+    | '/drivers/$id'
+    | '/cabinets'
+    | '/drivers'
+    | '/cabinets/$id/edit'
+    | '/drivers/$id/edit'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '' | '/about' | '/license' | '/login'
+  to:
+    | '/'
+    | '/about'
+    | '/license'
+    | '/login'
+    | '/cabinets/$id'
+    | '/drivers/$id'
+    | '/cabinets'
+    | '/drivers'
+    | '/cabinets/$id/edit'
+    | '/drivers/$id/edit'
   id:
     | '__root__'
     | '/'
-    | '/_content'
-    | '/_content/about'
-    | '/_content/license'
-    | '/_content/login'
+    | '/about'
+    | '/license'
+    | '/login'
+    | '/cabinets/$id'
+    | '/drivers/$id'
+    | '/cabinets/'
+    | '/drivers/'
+    | '/cabinets/$id/edit'
+    | '/drivers/$id/edit'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ContentRouteRoute: typeof ContentRouteRouteWithChildren
+  AboutRoute: typeof AboutRoute
+  LicenseRoute: typeof LicenseRoute
+  LoginRoute: typeof LoginRoute
+  CabinetsIdRoute: typeof CabinetsIdRouteWithChildren
+  DriversIdRoute: typeof DriversIdRouteWithChildren
+  CabinetsIndexRoute: typeof CabinetsIndexRoute
+  DriversIndexRoute: typeof DriversIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ContentRouteRoute: ContentRouteRouteWithChildren,
+  AboutRoute: AboutRoute,
+  LicenseRoute: LicenseRoute,
+  LoginRoute: LoginRoute,
+  CabinetsIdRoute: CabinetsIdRouteWithChildren,
+  DriversIdRoute: DriversIdRouteWithChildren,
+  CabinetsIndexRoute: CabinetsIndexRoute,
+  DriversIndexRoute: DriversIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -169,31 +300,52 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/_content"
+        "/about",
+        "/license",
+        "/login",
+        "/cabinets/$id",
+        "/drivers/$id",
+        "/cabinets/",
+        "/drivers/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
-    "/_content": {
-      "filePath": "_content/route.tsx",
+    "/about": {
+      "filePath": "about.tsx"
+    },
+    "/license": {
+      "filePath": "license.tsx"
+    },
+    "/login": {
+      "filePath": "login.tsx"
+    },
+    "/cabinets/$id": {
+      "filePath": "cabinets/$id.tsx",
       "children": [
-        "/_content/about",
-        "/_content/license",
-        "/_content/login"
+        "/cabinets/$id/edit"
       ]
     },
-    "/_content/about": {
-      "filePath": "_content/about.tsx",
-      "parent": "/_content"
+    "/drivers/$id": {
+      "filePath": "drivers/$id.tsx",
+      "children": [
+        "/drivers/$id/edit"
+      ]
     },
-    "/_content/license": {
-      "filePath": "_content/license.tsx",
-      "parent": "/_content"
+    "/cabinets/": {
+      "filePath": "cabinets/index.tsx"
     },
-    "/_content/login": {
-      "filePath": "_content/login.tsx",
-      "parent": "/_content"
+    "/drivers/": {
+      "filePath": "drivers/index.tsx"
+    },
+    "/cabinets/$id/edit": {
+      "filePath": "cabinets/$id.edit.tsx",
+      "parent": "/cabinets/$id"
+    },
+    "/drivers/$id/edit": {
+      "filePath": "drivers/$id.edit.tsx",
+      "parent": "/drivers/$id"
     }
   }
 }
